@@ -1,0 +1,21 @@
+{% extends "root.html" %}
+{% block title %} Edit opened estates {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+
+{% for estate in estates %}
+    <table>
+    <a>Name: {{estate.name}}<br></a>
+    <a>Description:<br> {{estate.description}}<br></a>
+    <a>Cost: {{ estate.cost }}<br></a>
+    <a>Category: {{ estate.category.name }}<br></a>
+    <a href="{% url 'estates_delete_page' estate.id %}">Delete</a><br>
+    <a href="{% url 'estates_edit_page' estate.id %}">Edit</a>
+    <br><br>
+    </table>
+{% endfor %}
+
+<a href="{% url 'estates_add_page' %}">Add</a>
+
+{% endblock content %}

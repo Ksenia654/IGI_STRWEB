@@ -1,0 +1,36 @@
+{% extends "root.html" %}
+{% block title %} Company info {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+Average user age = {{users_stats.average}}<br>
+Median user age = {{users_stats.median}}<br>
+Average purchase price = {{average_price}}<br>
+Median of purchase prices = {{median_price}}<br>
+Mode of purchase prices = {{mode_price}}<br>
+Most popular categories from employees: <br>
+<img src="{{plot1}}" >
+<br>
+Most expensive categories: <br>
+<img src="{{plot2}}" >
+
+<br>
+Company information: <br>
+{% for info in infos %}
+    <table>
+    <a>{{info.info}}<br></a>
+    <a>{{info.description}}<br></a>
+
+    {%load tz %}
+    {%localtime on %}
+    <a>Local: {{info.published}}<br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC: {{info.published}}<br></a>
+    {%endlocaltime%}
+
+    <br>
+    </table>
+{% endfor %}
+
+{% endblock content %}

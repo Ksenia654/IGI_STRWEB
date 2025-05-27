@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div>
+        <a href="{% url 'main_page' %}">Main page</a> |
+        <a href="{% url 'company_info_page' %}">Company info</a> |
+        <a href="{% url 'news_page' %}">News</a> |
+        <a href="{% url 'qa_page' %}">FAQ</a> |
+        <a href="{% url 'policy_page' %}">Policy</a> |
+        <a href="{% url 'promocodes_page' %}">Promocodes</a> |
+        <a href="{% url 'vacancies_page' %}">Vacancies</a> |
+        <a href="{% url 'contacts_page' %}">Contacts</a> |
+        <a href="{% url 'reviews_page' %}">Reviews</a> | 
+        <a href="{% url 'categories_page' %}">Categories</a> | 
+        <a href="{% url 'estates_page' %}">Real Estates</a>
+    </div>
+    <div>
+        <br>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout_page' %}">Logout</a> |
+        <a href="{% url 'private_info_page' %}">Private Info</a>
+        {% else %}
+        <a href="{% url 'register_page' %}">Register</a> |
+        <a href="{% url 'login_page' %}">Login</a>
+        {% endif %}
+    </div>
+    <hr>
+    <h1>{% block title %}{% endblock title %}</h1>
+    <h2>{% block header %}{% endblock header %}</h2>
+    <div>{% block content%}{% endblock content %}</div>
+    
+</body>
+
+<footer>
+    <br>
+    <div>
+        {% load tz %}
+        {% load filters %}
+        <hr>
+        Made by Shaveyko Kseniya. Student at FCSaN BSUIR. There is no reserved rights<br>
+        {% get_current_timezone as current_timezone %}
+        Timezone: {{current_timezone}} <br> Date: {% now "d/m/Y" %}
+        Time : {% now "H:i:s" %}
+        <pre>{{ current_timezone|print_calendar }}</pre>
+    </div>
+</footer>
+</html>
+
+<script>
+    let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!tz) {
+        tz = "UTC"
+    }
+    document.cookie = "mytimezone=" + tz + ";path=/";
+</script>

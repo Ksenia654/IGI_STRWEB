@@ -1,0 +1,28 @@
+{% extends "root.html" %}
+{% block title %} Main page {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% if articles %}
+    <a>Last post: <br></a>
+    <table>
+        <h2>{{articles.header}}<br></h2>
+        <a>{{articles.content}}<br></a>
+        <img src="{{ articles.image.url }}" width="250" height="250"> <br>
+        {%load tz %}
+        {%localtime on %}
+        <a>Local: {{articles.published}}<br></a>
+        {%endlocaltime%}
+        {%localtime off %}
+        <a>UTC: {{articles.published}}<br></a>
+        {%endlocaltime%}
+        <br>
+        <br>
+    </table>
+{% endif %}
+
+Random cat fact: <br> {{cat_fact}}<br>
+Random dog picture:<br>
+<img src="{{dog_image}}"width="300" height="300">
+
+{% endblock content %}

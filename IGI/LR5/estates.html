@@ -1,0 +1,66 @@
+{% extends "root.html" %}
+{% block title %} All estates {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% if is_employee %}
+<form method="POST">
+    {% csrf_token %}
+    <label for="estate_select">Estate:</label>
+    <select name="estate_select">
+        {% for estate in estates %}
+        <option value="{{ estate.id }}">{{ estate.name }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Open reviews with estate">
+</form>
+<br>
+{% else %}
+<form method="GET" action="{% url 'estates_page' %}">
+    <label for="min_cost">Min cost (empty for no lower bound):</label>
+    <input type="number" step="0.01" name="min_cost" placeholder="Enter cost">
+    <br>
+    <label for="max_cost">Max cost (empty for no upper bound):</label>
+    <input type="number" step="0.01" name="max_cost" placeholder="Enter cost">
+
+    <br>
+    <label for="category">Category:</label>
+    <select name="category">
+        <option value="">All</option>
+        {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Filter">
+</form>
+{% endif %}
+
+<br>
+{% for estate in estates %}
+    <table>
+    <a>Name: {{estate.name}}<br></a>
+    <a>Description:<br> {{estate.description}}<br></a>
+    <a>Cost:<br> {{estate.cost}}<br></a>
+    <a>Category:<br> {{estate.category.name}}<br></a>
+    <a>Area:<br> {{estate.area}}<br></a>
+    <br>
+    </table>
+{% endfor %}
+
+{% if is_client %}
+<form method="POST">
+    {% csrf_token %}
+    <label for="estate_select">Estate you want to review:</label>
+    <select name="estate_select">
+        {% for estate in estates %}
+        <option value="{{ estate.id }}">{{ estate.name }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Filter">
+</form>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "root.html" %}
+{% block title %} Private Info {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+
+<table>
+    <a>UserName: {{user.username}}<br></a>
+    <a>Name: {{user.first_name}} {{user.last_name}}<br></a>
+    <a>Email: {{user.email}}<br></a>
+    <a>Phone Number: {{user.phone_number}}<br></a>
+    <a>Birth date: {{user.birth_date}}<br></a>
+    <a>Avatar:<br></a>
+    <img src="{{ user.photo.url }}" width="250" height="300"> <br>
+    <br>
+    {% if not user.is_superuser %}
+    <a href="{% url 'submit_review_page'%}">Submit a review<br></a>
+    <a href="{% url 'estates_page' %}">View estates<br></a>
+    <a href="{% url 'contracts_page' %}">View contracts<br></a>
+    {% endif %}
+</table>
+
+{% if user.is_superuser %}
+<br>
+Superuser:
+<div>
+    <a href="/admin">Go to the admin panel</a>
+    <br>
+    <a href="{% url 'estates_crud_page' %}">Manage opened estates</a>
+</div>
+{% endif %}
+
+{% endblock content %}

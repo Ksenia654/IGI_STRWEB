@@ -1,0 +1,21 @@
+{% extends "root.html" %}
+{% block title %} FAQ {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% for qa in glossary %}
+    <table>
+    <h3>{{qa.question}}<br></h3>
+    <a>{{qa.answer}}<br></a>
+    {%load tz %}
+    {%localtime on %}
+    <a>Local: {{qa.published}}<br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC: {{qa.published}}<br></a>
+    {%endlocaltime%}
+    <br>
+    </table>
+{% endfor %}
+
+{% endblock content %}

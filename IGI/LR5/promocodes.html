@@ -1,0 +1,28 @@
+{% extends "root.html" %}
+{% block title %} Promocodes {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% load filters %}
+{% for promo in promos %}
+    <table>
+    <h4>{{promo.name}}<br></h4>
+    <a>Can used for {{promo.category.name}}<br></a>
+    <a>Code: {{promo.code}}<br></a>
+    <a>Savings: {{promo.savings|multiply_by_100}}%<br></a>
+    {%load tz %}
+    {%localtime on %}
+    <a>Local:<br></a>
+    <a>Published: {{promo.published}}<br></a>
+    <a>Updated: {{promo.updated}} <br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC:<br></a>
+    <a>Published: {{promo.published}}<br></a>
+    <a>Updated: {{promo.updated}} <br></a>
+    {%endlocaltime%}
+    <br>
+    </table>
+{% endfor %}
+
+{% endblock content %}

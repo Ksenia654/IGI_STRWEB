@@ -1,0 +1,22 @@
+{% extends "root.html" %}
+{% block title %} News {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% for article in articles %}
+    <table>
+    <h2>{{article.header}}<br></h2>
+    <a>{{article.content}}<br></a>
+    <img src="{{ article.image.url }}" width="250" height="250"> <br>
+    {%load tz %}
+    {%localtime on %}
+    <a>Local: {{article.published}}<br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC: {{article.published}}<br></a>
+    {%endlocaltime%}
+    <br>
+    </table>
+{% endfor %}
+
+{% endblock content %}

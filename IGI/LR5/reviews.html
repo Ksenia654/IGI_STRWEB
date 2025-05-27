@@ -1,0 +1,44 @@
+{% extends "root.html" %}
+{% block title %} Estate Reviews {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% for review in reviews %}
+    <table>
+    <h2>Client:<br>{{review.client.profile.username}}<br></h2>
+    <h2>Realtor:<br>{{review.realtor.profile.username}}<br></h2>
+    <a>Description:<br>{{review.description}}<br></a>
+    {%load tz %}
+    {%localtime on %}
+    <a>Local: {{review.date}}<br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC: {{review.date}}<br></a>
+    {%endlocaltime%}
+    <br>
+    </table>
+{% endfor %}
+
+{% if is_client %}
+<form method="POST">
+    {% csrf_token %}
+    {% for realtor in employees %}
+        <table>
+        <h2>Realtor: {{realtor.profile.username}}<br></h2>
+        <a>Full name:<br> {{realtor.profile.first_name}} {{ realtor.profile.last_name }}<br></a>
+        <br>
+        </table>
+    {% endfor %}
+
+    <label for="realtor_select">Choose your realtor with whom you want to review estate:<br></label>
+    <select name="realtor_select">
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{employee.profile.username}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Review">
+</form>
+<a href="/estate/buy/{{ estate_id }}">Buy estate<br></a>
+{% endif %}
+
+{% endblock content %}

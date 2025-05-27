@@ -1,0 +1,31 @@
+{% extends "root.html" %}
+{% block title %} Contracts {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% load filters %}
+{% if is_employee %}
+
+<h2>Worked with clients:</h2>
+{% for client in clients %}
+    <table>
+    <a>Username: <br>{{client.profile.username}}<br></a>
+    <a>Full name:<br> {{client.profile.first_name}} {{client.profile.last_name}} <br></a>
+    <br>
+    </table>
+{% endfor %}
+
+{% endif %}
+<h2>Contracts:</h2>
+{% for contract in contracts %}
+    <table>
+    <a>Client: <br>{{contract.client.profile.username}}<br></a>
+    <a>Realtor:<br> {{contract.realtor.profile.username}}<br></a>
+    <a>Estate:<br> {{contract.estate.name}}<br></a>
+    <a>Category:<br> {{contract.estate.category.name}}<br></a>
+    <a>Area:<br> {{contract.estate.area}}<br></a>
+    <a>Savings:<br> {{contract.activated_promo.savings|multiply_by_100}}%<br></a>
+    <br>
+    </table>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "root.html" %}
+{% block title %} Categories {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+<br>
+Our categories:<br>
+{% for category in categories %}
+<table>
+    <a>Name: {{category.name}}<br></a>
+    <a>Description:<br> {{category.description}} <br></a>
+    <br><br>
+</table>
+{% endfor %}
+{% endblock content %}

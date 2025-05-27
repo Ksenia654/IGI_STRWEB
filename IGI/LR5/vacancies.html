@@ -1,0 +1,21 @@
+{% extends "root.html" %}
+{% block title %} Vacancies {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+{% for vacancy in vacancies %}
+    <table>
+    <h4>{{vacancy.name}}<br></h4>
+    <a>{{vacancy.description}}<br></a>
+    {%load tz %}
+    {%localtime on %}
+    <a>Local: {{vacancy.published_date}}<br></a>
+    {%endlocaltime%}
+    {%localtime off %}
+    <a>UTC: {{vacancy.published_date}}<br></a>
+    {%endlocaltime%}
+    <br>
+    </table>
+{% endfor %}
+
+{% endblock content %}

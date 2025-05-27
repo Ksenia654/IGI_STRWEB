@@ -1,0 +1,20 @@
+{% extends "root.html" %}
+{% block title %} Contacts {% endblock title %}
+{% block header %} {{ message }} {% endblock header %}
+  
+{% block content %}
+<br>
+Our employees:<br>
+{% for employee in employees %}
+<table>
+    <a>username: {{employee.profile.username}}<br></a>
+    <a>Name: {{employee.profile.first_name}} {{employee.profile.last_name}}<br></a>
+    <a>Mail: {{employee.profile.email}}<br></a>
+    <a>Phone number: {{employee.profile.phone_number}}<br></a>
+    <a>Vacancy: {{employee.vacancy.name}}<br></a>
+    <img src="{{ employee.profile.photo.url }}" width="250" height="250"> <br>
+    <br>
+<br><br>
+</table>
+{% endfor %}
+{% endblock content %}
