@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}О компании{% endblock %}
+
+{% block head %}
+  <meta name="description" content="О нашей компании: история, миссия, сертификаты и реквизиты.">
+  <meta name="keywords" content="компания, история, реквизиты, сертификаты">
+{% endblock %}
+
+{% block content %}
+<main>
+    <header>
+        <h1>О компании</h1>
+    </header>
+
+  <article aria-labelledby="about-title">
+    <h2 id="about-title">Краткая информация</h2>
+    <p><dfn title="Mission statement">Миссия</dfn>: {{ about_info.text|linebreaks }}</p>
+
+    {% if about_info.logo %}
+  <figure style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <a href="{{ about_info.logo.url }}" download title="Скачать логотип компании">
+      <img src="{{ about_info.logo.url }}"
+           alt="Логотип компании"
+           style="max-width: 300px; cursor: pointer;"
+           onmouseover="this.style.opacity='0.85';"
+           onmouseout="this.style.opacity='1';">
+    </a>
+    <figcaption style="margin-top: 8px;">Нажмите на логотип, чтобы скачать</figcaption>
+  </figure>
+{% endif %}
+
+
+    {% if about_info.video %}
+      <section aria-label="Видео о компании">
+        <h3>Видео</h3>
+        <div>
+          <iframe src="{{ about_info.video }}" title="Видео о компании" width="560" height="315" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        </div>
+      </section>
+    {% endif %}
+
+    <section>
+        <h3>История компании</h3>
+        <p>{{ about_info.text|linebreaks }}</p>
+    </section>
+
+    <section>
+      <h3>Реквизиты</h3>
+      <p>{{ about_info.props|default:"Реквизиты не указаны"|linebreaks }}</p>
+
+      <h3>Сертификат</h3>
+    {% if about_info.certificate %}
+      <p>
+       СВИДЕТЕЛЬСТВО о внесении сведений<br>
+       ООО "ZooShop"<br>
+       ИНН: 1234567890<br>
+       Регистрационный номер: 9876543210<br>
+       Дата: 17.01.2017<br>
+       Подпись: И.О.Фамилия<br>
+       Контакты: <a href="mailto:office@gmail.com">office@gmail.com</a>,
+       <a href="https://www.office.ru" target="_blank">www.office.ru</a>
+      </p>
+
+        {% endif %}
+    </section>
+  </article>
+
+</main>
+{% endblock %}
